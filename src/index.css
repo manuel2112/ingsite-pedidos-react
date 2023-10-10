@@ -25,3 +25,25 @@ a.btn-cliente{
     padding: 1rem 0;
     font-size: 1.2rem;
 }
+
+.list-box-article{
+    max-height: 400px;
+    margin: 0 auto;
+    width: 95%;
+    overflow: auto;
+}
+
+.inner-btn {
+    position: absolute;
+    width: 10px;
+    font-weight: 550;
+    border: none;
+    background-color: transparent;
+    line-height: 35px;
+    left: calc(100% - 30px);
+    z-index: 99999;
+}
+
+.inner-btn:hover {
+    color: blue;
+}

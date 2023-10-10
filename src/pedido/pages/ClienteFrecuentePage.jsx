@@ -4,7 +4,7 @@ export const ClienteFrecuentePage = () => {
     return (
         <PedidoLayout>
             <div className="col-12">
-                <h1>ClienteFrecuentePage</h1>
+                <h1>Cliente Frecuente</h1>
             </div>
         </PedidoLayout>
     )

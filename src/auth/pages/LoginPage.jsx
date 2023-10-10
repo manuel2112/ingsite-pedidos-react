@@ -3,6 +3,7 @@ import { useAuthStore, useForm } from '../../hooks';
 import { logoIngsite, logoCliente } from "../../helpers";
 import Swal from 'sweetalert2';
 import './LoginPage.css';
+import { Form } from 'react-bootstrap';
 
 const loginFormFields = {
     loginUser: '',
@@ -41,7 +42,7 @@ export const LoginPage = () => {
                     <div className="col-12 login-form-1">
                         <h3>SISTEMA DE PEDIDOS</h3>
                         <img src={logoIngsite} alt='INGSITE' className='logo-ingsite' />
-                        <form onSubmit={onSubmit}>
+                        <Form onSubmit={onSubmit}>
                             <div className="form-group mb-2">
                                 <input 
                                     type="text"
@@ -69,7 +70,7 @@ export const LoginPage = () => {
                                     value="INGRESAR" 
                                 />
                             </div>
-                        </form>
+                        </Form>
                     </div>
                 </div>
             </div>

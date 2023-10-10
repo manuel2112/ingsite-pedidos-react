@@ -24,7 +24,7 @@ export const useAuthStore = () => {
 
             if(data.success){
                 localStorage.setItem(nameToken, data.token);
-                dispatch(onLogin({name: data.user_name, id: data.user_id}));
+                dispatch(onLogin({name: data.user_name, id: data.user_id, perfil: data.user_perfil}));
                 Swal.close();
             }else{
                 dispatch(onLogout(data.msg));
@@ -59,7 +59,7 @@ export const useAuthStore = () => {
             
             if(data.success){
                 localStorage.setItem(nameToken, data.token);
-                dispatch(onLogin({name: data.user_name, id: data.user_id}));
+                dispatch(onLogin({name: data.user_name, id: data.user_id, perfil: data.user_perfil}));
                 Swal.close();
             }else{
                 localStorage.clear();

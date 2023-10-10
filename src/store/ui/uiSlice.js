@@ -3,16 +3,54 @@ import { createSlice } from '@reduxjs/toolkit';
 export const uiSlice = createSlice({
     name: 'ui',
     initialState: {
-        isLoading: false
+        isShowMdlArticle: false,
+        isShowMdlArticleBox: false,
+        isShowMdlArticleDetailsInsert: false,
+        isShowMdlArticleDetailsUpdate: false,
+        isShowMdlFamilyBox: false,
     },
     reducers: {
-        onLoading: ( state ) => {
-            state.isLoading = true;
+        onShowMdlArticle: ( state ) => {
+            state.isShowMdlArticle = true;
         },
-        onNotLoading: ( state ) => {
-            state.isLoading = false;
+        onHiddeMdlArticle: ( state ) => {
+            state.isShowMdlArticle = false;
+        },
+        onShowMdlArticleDetailsInsert: ( state ) => {
+            state.isShowMdlArticleDetailsInsert = true;
+        },
+        onHiddeMdlArticleDetailsInsert: ( state ) => {
+            state.isShowMdlArticleDetailsInsert = false;
+        },
+        onShowMdlArticleDetailsUpdate: ( state ) => {
+            state.isShowMdlArticleDetailsUpdate = true;
+        },
+        onHiddeMdlArticleDetailsUpdate: ( state ) => {
+            state.isShowMdlArticleDetailsUpdate = false;
+        },
+        onShowMdlArticleBox: ( state ) => {
+            state.isShowMdlArticleBox = true;
+            state.isShowMdlFamilyBox = false;
+        },
+        onShowMdlFamilyBox: ( state ) => {
+            state.isShowMdlArticleBox = false;
+            state.isShowMdlFamilyBox = true;
+        },
+        onResetMdlBox: ( state ) => {
+            state.isShowMdlArticleBox = false;
+            state.isShowMdlFamilyBox = false;
         },
     }
 });
 
-export const { onLoading, onNotLoading } = uiSlice.actions;
+export const {
+    onResetMdlBox,
+    onShowMdlArticle, 
+    onHiddeMdlArticle,
+    onShowMdlArticleBox, 
+    onShowMdlFamilyBox,
+    onShowMdlArticleDetailsInsert,
+    onHiddeMdlArticleDetailsInsert,
+    onShowMdlArticleDetailsUpdate,
+    onHiddeMdlArticleDetailsUpdate
+} = uiSlice.actions;
