@@ -22,7 +22,7 @@ export const ClienteNoFrecuentePage = () => {
 
     useEffect(() => {
 
-        if(cliente.length > 0) return;
+        if(cliente.name?.length > 0) return;
 
         setIsInputDisabled(false);
         onResetForm();
@@ -41,7 +41,7 @@ export const ClienteNoFrecuentePage = () => {
             dispatch(onCliente({}));
             setIsButtonArticlesShow(false);
         }else{
-            dispatch(onCliente(cliente));
+            dispatch(onCliente({id:'', name:cliente}));
             setIsButtonArticlesShow(true);
         }
 

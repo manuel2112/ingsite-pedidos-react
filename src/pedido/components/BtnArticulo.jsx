@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Badge, Button } from "react-bootstrap"
 import { useDispatch } from 'react-redux';
 import { onArticleSelect, onHiddeMdlArticle, onShowMdlArticleDetailsInsert } from '../../store';
+import { currencyFormat } from '../../helpers';
 
 export const BtnArticulo = ({article}) => {
 
@@ -10,7 +11,7 @@ export const BtnArticulo = ({article}) => {
 
     const isDisabled = useMemo(() => article.articulos_stock < 1, [article]);
 
-    const [articlesAddFields, setArticlesAddFields] = useState(article)
+    const [articlesAddFields, setArticlesAddFields] = useState(article)    
 
     useEffect(() => {
         setArticlesAddFields({
@@ -37,7 +38,7 @@ export const BtnArticulo = ({article}) => {
             { article.articulos_descripcion || '---' } 
             <div>
                 <Badge bg="secondary">{ article.articulos_stock }</Badge> <br />
-                <Badge bg="primary">${ article.articulos_venta }</Badge>
+                <Badge bg="primary">{ currencyFormat(Number(article.articulos_venta)) }</Badge>
             </div>
         </Button>
     )

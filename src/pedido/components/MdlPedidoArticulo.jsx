@@ -13,9 +13,10 @@ export const MdlPedidoArticulo = () => {
 
     const dispatch = useDispatch()
     const { arrIdPedido } = useSelector( state => state.pedido );
-    const [showButton, setShowButton] = useState(false)
-    const { txtSearch, onInputChange, onResetForm } = useForm(searchFormFields);
     const { articlesTemp } = useArticuloStore();
+    const { txtSearch, onInputChange, onResetForm } = useForm(searchFormFields);
+
+    const [showButton, setShowButton] = useState(false);
 
     useEffect(() => {
         const term = txtSearch.toUpperCase().trim();    
@@ -57,14 +58,15 @@ export const MdlPedidoArticulo = () => {
 
             <div className="list-group list-box-article mt-2">
                 {
-                    articlesTemp.length > 0 
+                    articlesTemp.length > 0
                     ?
-                    ( 
-                        articlesTemp.map( article => (
-                            <BtnArticulo article={article} key={article.articulos_id} />                            
-                        ))
-                    )
-                    : 'SIN VALORES EXISTENTES'
+                    articlesTemp.map( (article) => 
+                        (
+                            <BtnArticulo article={article} key={article.articulos_id}  />
+                        ) 
+                    )                   
+                    : 
+                    'SIN ARTÍCULOS EXISTENTES'
                 }
             </div>
         </>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import { TiEdit, TiTrash } from "react-icons/ti";
 import Swal from 'sweetalert2';
+import { usePedidoStore } from '../../hooks';
 import { currencyFormat } from "../../helpers";
 import { onArticleSelect, onDeleteArticlePedido, onResetValues, onShowMdlArticleDetailsUpdate } from "../../store";
 
@@ -10,6 +11,7 @@ export const TblResumenPedido = () => {
     
     const dispatch = useDispatch();
     const { pedido } = useSelector( state => state.pedido );
+    const { startPedido } = usePedidoStore();
     const [total, setTotal] = useState(0)
 
     useEffect(() => {
@@ -32,6 +34,7 @@ export const TblResumenPedido = () => {
             confirmButtonText: 'ELIMINAR',
             cancelButtonText: 'CANCELAR',
             confirmButtonColor: '#d33',
+            allowOutsideClick: false
         }).then((result) => {            
             if (result.isConfirmed) {
                 dispatch(onDeleteArticlePedido(value.articulos_id));
@@ -48,6 +51,7 @@ export const TblResumenPedido = () => {
             confirmButtonText: 'SI, ELIMINAR',
             cancelButtonText: 'CANCELAR',
             confirmButtonColor: '#d33',
+            allowOutsideClick: false
         }).then((result) => {            
             if (result.isConfirmed) {
                 dispatch(onResetValues());
@@ -56,7 +60,21 @@ export const TblResumenPedido = () => {
         })
     }
     const onSend = () => {
-        console.log('ENVIAR');
+        Swal.fire({
+            title: '¿ESTÁS SEGURO DE ENVIAR ESTE PEDIDO?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'SI, ENVIAR',
+            cancelButtonText: 'CANCELAR',
+            confirmButtonColor: '#198754',
+            allowOutsideClick: false
+        }).then((result) => {     
+            if (result.isConfirmed) {
+                Swal.fire('', '', '')          
+                startPedido({total});   
+                            
+            }
+        })
     }
     
 

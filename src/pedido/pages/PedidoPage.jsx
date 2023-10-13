@@ -10,10 +10,11 @@ export const PedidoPage = () => {
     const dispatch = useDispatch();
     
     const { startArticles } = useArticuloStore();
+    
     useEffect(() => {
         startArticles();
         dispatch(onResetValues());
-    }, [])
+    }, []);
     
 
     return (
