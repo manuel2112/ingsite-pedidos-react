@@ -72,9 +72,6 @@ export const MdlPedido = () => {
                         onClick={handleClose}>
                         CERRAR
                     </Button>
-                    {/* <Button variant="primary">
-                        AGREGAR
-                    </Button> */}
                 </Modal.Footer>
             </Modal>
         </>

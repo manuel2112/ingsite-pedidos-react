@@ -1,6 +1,8 @@
 
 export * from './BtnArticulo';
 export * from './BtnFamilia';
+export * from './BtnCliente';
+export * from './MdlClienteInsert';
 export * from './MdlPedido';
 export * from './MdlPedidoArticulo';
 export * from './MdlPedidoArticuloInsert';

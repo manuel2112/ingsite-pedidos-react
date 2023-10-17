@@ -3,14 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 export const pedidoSlice = createSlice({
     name: 'pedido',
     initialState: {
-        cliente: {},
         pedido: [],
         arrIdPedido: []
     },
     reducers: {
-        onCliente: (state, {payload}) => {
-            state.cliente = payload;
-        },
         onAddArticlePedido: (state, {payload}) => {
             state.arrIdPedido = [];
             state.pedido.push(payload);
@@ -37,18 +33,16 @@ export const pedidoSlice = createSlice({
             state.pedido = state.pedido.filter( article => article.articulos_id != payload );
             state.pedido.map(article => state.arrIdPedido.push(article.articulos_id));
         },
-        onResetValues: ( state ) => {
-            state.cliente = {};
+        onResetPedido: ( state ) => {
             state.pedido = [];
             state.arrIdPedido = [];
         }
     }
 });
 
-export const { 
-    onCliente, 
+export const {
     onAddArticlePedido, 
-    onResetValues,
+    onResetPedido,
     onDeleteArticlePedido,
     onEditArticlePedido,
 } = pedidoSlice.actions;

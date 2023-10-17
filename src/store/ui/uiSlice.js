@@ -8,6 +8,8 @@ export const uiSlice = createSlice({
         isShowMdlArticleDetailsInsert: false,
         isShowMdlArticleDetailsUpdate: false,
         isShowMdlFamilyBox: false,
+        isResetForm: false,
+        isShowMdlClienteInsert: false,
     },
     reducers: {
         onShowMdlArticle: ( state ) => {
@@ -40,6 +42,15 @@ export const uiSlice = createSlice({
             state.isShowMdlArticleBox = false;
             state.isShowMdlFamilyBox = false;
         },
+        onResetFormPedido: ( state ) => {
+            state.isResetForm = !state.isResetForm;
+        },
+        onShowClienteInsert: ( state ) => {
+            state.isShowMdlClienteInsert = true;
+        },
+        onHiddeClienteInsert: ( state ) => {
+            state.isShowMdlClienteInsert = false;
+        },
     }
 });
 
@@ -52,5 +63,8 @@ export const {
     onShowMdlArticleDetailsInsert,
     onHiddeMdlArticleDetailsInsert,
     onShowMdlArticleDetailsUpdate,
-    onHiddeMdlArticleDetailsUpdate
+    onHiddeMdlArticleDetailsUpdate,
+    onResetFormPedido,
+    onShowClienteInsert,
+    onHiddeClienteInsert,
 } = uiSlice.actions;

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useForm } from "../../hooks";
+import { useClienteStore, useForm } from "../../hooks";
 import { PedidoLayout } from "../layout/PedidoLayout"
 import { useDispatch, useSelector } from "react-redux";
-import { onCliente, onResetArticlesTemp, onResetMdlBox, onShowMdlArticle } from "../../store";
+import { onArticleReset, onClienteSelectReset, onClienteSelect, onResetArticlesTemp, onResetFormPedido, onResetMdlBox, onResetPedido, onShowMdlArticle } from "../../store";
 import { MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
 
 const formCliente = {
@@ -12,8 +12,10 @@ const formCliente = {
 export const ClienteNoFrecuentePage = () => {
 
     const dispatch = useDispatch();
-    const { cliente, pedido } = useSelector( state => state.pedido );
-    const { isShowMdlArticle, isShowMdlArticleDetailsInsert, isShowMdlArticleDetailsUpdate } = useSelector( state => state.ui );
+    const { pedido } = useSelector( state => state.pedido );
+    const { isShowMdlArticle, isShowMdlArticleDetailsInsert, isShowMdlArticleDetailsUpdate, isResetForm } = useSelector( state => state.ui );
+
+    const { clienteSelect } = useClienteStore();
 
     const inputRef = useRef(null);
     const { formClienteName, onInputChange, onResetForm } = useForm(formCliente);
@@ -21,27 +23,38 @@ export const ClienteNoFrecuentePage = () => {
     const [ isButtonArticlesShow, setIsButtonArticlesShow ] = useState(false);
 
     useEffect(() => {
+        inputRef.current.focus();
+    }, []) 
+    
+    useEffect(() => {        
+        if( isResetForm ){
+            dispatch(onResetPedido());
+            dispatch(onClienteSelectReset());
+            dispatch(onArticleReset());
+            setIsInputDisabled(false);
+            dispatch(onResetFormPedido());
+            onResetForm();
+        }
+    }, [isResetForm])
 
-        if(cliente.name?.length > 0) return;
+    useEffect(() => {
+
+        if( clienteSelect.name != '' ) return;
 
         setIsInputDisabled(false);
         onResetForm();
 
-    }, [cliente])
-
-    useEffect(() => {
-        inputRef.current.focus();
-    }, [])    
+    }, [clienteSelect])   
 
     useEffect(() => {
 
         const cliente = formClienteName.trim().toUpperCase();
         
         if( cliente.length < 4 ){
-            dispatch(onCliente({}));
+            dispatch(onClienteSelectReset());
             setIsButtonArticlesShow(false);
         }else{
-            dispatch(onCliente({id:'', name:cliente}));
+            dispatch(onClienteSelect({id:'', name:cliente}));
             setIsButtonArticlesShow(true);
         }
 
@@ -49,11 +62,12 @@ export const ClienteNoFrecuentePage = () => {
 
     useEffect(() => {
         
-        if( pedido.length === 0 ) return;
+        if( pedido.length > 0 ) {
+            setIsInputDisabled(true);
+            return;
+        }
 
-        setIsInputDisabled(true);
-
-    }, [pedido])
+    }, [pedido]);
 
     const openMdlArticle = () => {
         dispatch(onResetMdlBox());
@@ -104,9 +118,7 @@ export const ClienteNoFrecuentePage = () => {
             }
             {
                 pedido.length > 0 ? <TblResumenPedido /> : ''
-            }
-
-            
+            }            
             
         </PedidoLayout>
     )

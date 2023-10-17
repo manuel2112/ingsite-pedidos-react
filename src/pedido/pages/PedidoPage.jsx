@@ -1,20 +1,27 @@
 import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
+import { Button } from "react-bootstrap";
 import { PedidoLayout } from "../layout/PedidoLayout"
-import { useArticuloStore } from "../../hooks";
-import { useDispatch } from "react-redux";
-import { onResetValues } from "../../store";
+import { MdlClienteInsert } from "../components";
+import { useArticuloStore, useClienteStore } from "../../hooks";
+import { onShowClienteInsert } from "../../store";
 
 export const PedidoPage = () => {
 
-    const dispatch = useDispatch();
-    
+    const dispatch = useDispatch();    
     const { startArticles } = useArticuloStore();
+    const { startClientes } = useClienteStore();
+    const { isShowMdlClienteInsert } = useSelector( state => state.ui );
     
     useEffect(() => {
         startArticles();
-        dispatch(onResetValues());
+        startClientes();
     }, []);
+
+    const newClient = () => {
+        dispatch(onShowClienteInsert());
+    }
     
 
     return (
@@ -35,11 +42,23 @@ export const PedidoPage = () => {
             </div>
             <div className="col-4">
                 <div className="d-grid">
-                    <Link to="/pedido/cliente-nuevo" className="btn btn-outline-primary btn-cliente">
+                    <Button
+                        type="button"
+                        variant="outline-primary"
+                        className="btn-cliente"
+                        onClick={newClient}>
+                    CLIENTE NUEVO
+                    </Button>
+                    {/* <Link to="/pedido/cliente-nuevo" className="btn btn-outline-primary btn-cliente">
                         CLIENTE NUEVO
-                    </Link>                      
+                    </Link>                       */}
                 </div>
             </div>
+
+            {
+                isShowMdlClienteInsert ? <MdlClienteInsert /> : ''
+            }
+
         </PedidoLayout>
     )
 }

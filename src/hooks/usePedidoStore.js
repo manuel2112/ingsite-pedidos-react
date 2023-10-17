@@ -2,15 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { pedidoApi } from "../api";
 import Swal from "sweetalert2";
 import { useAuthStore } from "./useAuthStore";
-import { onResetValues } from "../store";
+import { onResetFormPedido } from "../store";
 import { useNavigate } from "react-router-dom";
+import { useClienteStore } from "./useClienteStore";
 
 export const usePedidoStore = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { cliente, pedido } = useSelector( state => state.pedido );
+    const { pedido } = useSelector( state => state.pedido );
     const { user } = useAuthStore();
+    const { clienteSelect } = useClienteStore();
 
     const startPedido = async({total = 0}) => {    
         
@@ -19,8 +21,8 @@ export const usePedidoStore = () => {
         try {            
 
             const dataString = {
-                clienteId:  cliente.id, 
-                clienteNmb: cliente.name, 
+                clienteId:  clienteSelect.id, 
+                clienteNmb: clienteSelect.name, 
                 pedido:     pedido, 
                 total:      total, 
                 vendedor:   user.id,
@@ -28,7 +30,7 @@ export const usePedidoStore = () => {
             const {data} = await pedidoApi.post('/pedido', dataString);
 
             if(data.success){
-                dispatch(onResetValues());
+                dispatch(onResetFormPedido());
                 Swal.fire({
                     title: 'PEDIDO ENVIADO',
                     text: data.info,

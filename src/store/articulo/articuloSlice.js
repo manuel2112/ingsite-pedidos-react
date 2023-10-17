@@ -4,8 +4,8 @@ export const articuloSlice = createSlice({
     name: 'articulo',
     initialState: {
         articles: [],
-        articleSelect: {},
         articlesTemp: [],
+        articleSelect: {},
         families: []
     },
     reducers: {

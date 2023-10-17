@@ -5,7 +5,7 @@ import { TiEdit, TiTrash } from "react-icons/ti";
 import Swal from 'sweetalert2';
 import { usePedidoStore } from '../../hooks';
 import { currencyFormat } from "../../helpers";
-import { onArticleSelect, onDeleteArticlePedido, onResetValues, onShowMdlArticleDetailsUpdate } from "../../store";
+import { onArticleSelect, onDeleteArticlePedido, onResetFormPedido, onShowMdlArticleDetailsUpdate } from "../../store";
 
 export const TblResumenPedido = () => {
     
@@ -54,7 +54,7 @@ export const TblResumenPedido = () => {
             allowOutsideClick: false
         }).then((result) => {            
             if (result.isConfirmed) {
-                dispatch(onResetValues());
+                dispatch(onResetFormPedido());
                 Swal.fire('PEDIDO ELIMINADO EXITOSAMENTE', '', 'success')
             }
         })

@@ -42,6 +42,5 @@ export const useArticuloStore = () => {
 
         //MÉTODOS
         startArticles,
-
     }
 }
