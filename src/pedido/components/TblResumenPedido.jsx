@@ -1,82 +1,11 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Table } from "react-bootstrap";
 import { TiEdit, TiTrash } from "react-icons/ti";
-import Swal from 'sweetalert2';
-import { usePedidoStore } from '../../hooks';
-import { currencyFormat } from "../../helpers";
-import { onArticleSelect, onDeleteArticlePedido, onResetFormPedido, onShowMdlArticleDetailsUpdate } from "../../store";
+import { useTblResumenPedido } from '../../hooks';
+import { currencyFormat, nameArticle } from "../../helpers";
 
 export const TblResumenPedido = () => {
-    
-    const dispatch = useDispatch();
-    const { pedido } = useSelector( state => state.pedido );
-    const { startPedido } = usePedidoStore();
-    const [total, setTotal] = useState(0)
 
-    useEffect(() => {
-        let suma = 0;
-        pedido.map( ped => {
-            suma += ped.total
-        })
-        setTotal(suma);
-    }, [pedido])
-
-    const onEdit = (e, value) => {
-        dispatch(onArticleSelect(value));
-        dispatch(onShowMdlArticleDetailsUpdate());
-    }
-    const onDelete = (e, value) => {
-        Swal.fire({
-            title: '¿ESTÁS SEGURO DE ELIMINAR ESTE ARTÍCULO?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'ELIMINAR',
-            cancelButtonText: 'CANCELAR',
-            confirmButtonColor: '#d33',
-            allowOutsideClick: false
-        }).then((result) => {            
-            if (result.isConfirmed) {
-                dispatch(onDeleteArticlePedido(value.articulos_id));
-                Swal.fire('ARTÍCULO ELIMINADO EXITOSAMENTE', '', 'success')
-            }
-        })
-    }
-
-    const onClean = () => {
-        Swal.fire({
-            title: '¿ESTÁS SEGURO DE ELIMINAR ESTE PEDIDO?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'SI, ELIMINAR',
-            cancelButtonText: 'CANCELAR',
-            confirmButtonColor: '#d33',
-            allowOutsideClick: false
-        }).then((result) => {            
-            if (result.isConfirmed) {
-                dispatch(onResetFormPedido());
-                Swal.fire('PEDIDO ELIMINADO EXITOSAMENTE', '', 'success')
-            }
-        })
-    }
-    const onSend = () => {
-        Swal.fire({
-            title: '¿ESTÁS SEGURO DE ENVIAR ESTE PEDIDO?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'SI, ENVIAR',
-            cancelButtonText: 'CANCELAR',
-            confirmButtonColor: '#198754',
-            allowOutsideClick: false
-        }).then((result) => {     
-            if (result.isConfirmed) {
-                Swal.fire('', '', '')          
-                startPedido({total});   
-                            
-            }
-        })
-    }
-    
+    const { pedido, onEdit, onDelete, total, onClean, onSend } = useTblResumenPedido();    
 
     return (
         <>
@@ -98,7 +27,7 @@ export const TblResumenPedido = () => {
                         pedido.map( (ped, idx) => (
                             <tr key={ ped.articulos_id }>
                                 <td width={ '2%' }>{ idx + 1 }</td>
-                                <td>{ ped.articulos_descripcion }</td>
+                                <td>{ nameArticle(ped.familia_nombre, ped.articulos_descripcion) }</td>
                                 <td>{ currencyFormat(ped.valor) }</td>
                                 <td width={ '10%' }>{ ped.cantidad }</td>
                                 <td>{ currencyFormat(ped.total) }</td>

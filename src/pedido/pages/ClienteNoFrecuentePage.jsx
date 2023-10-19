@@ -1,79 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { useClienteStore, useForm } from "../../hooks";
-import { PedidoLayout } from "../layout/PedidoLayout"
-import { useDispatch, useSelector } from "react-redux";
-import { onArticleReset, onClienteSelectReset, onClienteSelect, onResetArticlesTemp, onResetFormPedido, onResetMdlBox, onResetPedido, onShowMdlArticle } from "../../store";
+import { useClienteNoFrecuente } from "../../hooks";
+import { PedidoLayout } from "../layout/PedidoLayout";
 import { MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
-
-const formCliente = {
-    formClienteName: ''
-}
 
 export const ClienteNoFrecuentePage = () => {
 
-    const dispatch = useDispatch();
-    const { pedido } = useSelector( state => state.pedido );
-    const { isShowMdlArticle, isShowMdlArticleDetailsInsert, isShowMdlArticleDetailsUpdate, isResetForm } = useSelector( state => state.ui );
-
-    const { clienteSelect } = useClienteStore();
-
-    const inputRef = useRef(null);
-    const { formClienteName, onInputChange, onResetForm } = useForm(formCliente);
-    const [ isInputDisabled, setIsInputDisabled ] = useState(false);
-    const [ isButtonArticlesShow, setIsButtonArticlesShow ] = useState(false);
-
-    useEffect(() => {
-        inputRef.current.focus();
-    }, []) 
-    
-    useEffect(() => {        
-        if( isResetForm ){
-            dispatch(onResetPedido());
-            dispatch(onClienteSelectReset());
-            dispatch(onArticleReset());
-            setIsInputDisabled(false);
-            dispatch(onResetFormPedido());
-            onResetForm();
-        }
-    }, [isResetForm])
-
-    useEffect(() => {
-
-        if( clienteSelect.name != '' ) return;
-
-        setIsInputDisabled(false);
-        onResetForm();
-
-    }, [clienteSelect])   
-
-    useEffect(() => {
-
-        const cliente = formClienteName.trim().toUpperCase();
-        
-        if( cliente.length < 4 ){
-            dispatch(onClienteSelectReset());
-            setIsButtonArticlesShow(false);
-        }else{
-            dispatch(onClienteSelect({id:'', name:cliente}));
-            setIsButtonArticlesShow(true);
-        }
-
-    }, [formClienteName]);
-
-    useEffect(() => {
-        
-        if( pedido.length > 0 ) {
-            setIsInputDisabled(true);
-            return;
-        }
-
-    }, [pedido]);
-
-    const openMdlArticle = () => {
-        dispatch(onResetMdlBox());
-        dispatch(onResetArticlesTemp());
-        dispatch(onShowMdlArticle());
-    }
+    const { formClienteName, onInputChange, isInputDisabled, inputRef, isButtonArticlesShow, openMdlArticle, isShowMdlArticle, isShowMdlArticleDetailsInsert, isShowMdlArticleDetailsUpdate, pedido } = useClienteNoFrecuente();
 
     return (
         <PedidoLayout>

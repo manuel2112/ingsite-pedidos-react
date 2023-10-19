@@ -10,6 +10,7 @@ export const uiSlice = createSlice({
         isShowMdlFamilyBox: false,
         isResetForm: false,
         isShowMdlClienteInsert: false,
+        isShowMdlPedidoDetail: false,
     },
     reducers: {
         onShowMdlArticle: ( state ) => {
@@ -51,6 +52,12 @@ export const uiSlice = createSlice({
         onHiddeClienteInsert: ( state ) => {
             state.isShowMdlClienteInsert = false;
         },
+        onShowPedidoDetail: ( state ) => {
+            state.isShowMdlPedidoDetail = true;
+        },
+        onHiddePedidoDetail: ( state ) => {
+            state.isShowMdlPedidoDetail = false;
+        },
     }
 });
 
@@ -67,4 +74,6 @@ export const {
     onResetFormPedido,
     onShowClienteInsert,
     onHiddeClienteInsert,
+    onShowPedidoDetail,
+    onHiddePedidoDetail
 } = uiSlice.actions;

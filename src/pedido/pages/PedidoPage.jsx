@@ -21,8 +21,7 @@ export const PedidoPage = () => {
 
     const newClient = () => {
         dispatch(onShowClienteInsert());
-    }
-    
+    }    
 
     return (
         <PedidoLayout>

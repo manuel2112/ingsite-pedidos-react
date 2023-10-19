@@ -13,7 +13,7 @@ export const HomePage = () => {
             </div>
             <div className="col-6">
                 <div className="d-grid">
-                    <Link to="/" className="btn btn-outline-primary btn-home">
+                    <Link to="/pedido/listado" className="btn btn-outline-primary btn-home">
                         PEDIDOS REALIZADOS
                     </Link>                      
                 </div>

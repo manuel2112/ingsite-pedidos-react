@@ -4,6 +4,8 @@ export const pedidoSlice = createSlice({
     name: 'pedido',
     initialState: {
         pedido: [],
+        pedidoList: [],
+        pedidoSelect: [],
         arrIdPedido: []
     },
     reducers: {
@@ -36,7 +38,20 @@ export const pedidoSlice = createSlice({
         onResetPedido: ( state ) => {
             state.pedido = [];
             state.arrIdPedido = [];
-        }
+        },
+        onListPedido: (state, {payload}) => {
+            state.pedidoList = payload;
+        },
+        onListPedidoReset: ( state ) => {
+            state.pedidoList = [];
+        },
+        onPedidoSelect: (state, {payload}) => {
+            state.pedidoSelect = payload;
+            console.log(state.pedidoSelect);
+        },
+        onPedidoSelectReset: ( state ) => {
+            state.pedidoSelect = [];
+        },
     }
 });
 
@@ -45,4 +60,8 @@ export const {
     onResetPedido,
     onDeleteArticlePedido,
     onEditArticlePedido,
+    onListPedido,
+    onListPedidoReset,
+    onPedidoSelect,
+    onPedidoSelectReset
 } = pedidoSlice.actions;

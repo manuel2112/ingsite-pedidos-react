@@ -1,60 +1,10 @@
-import { useEffect, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux";
-import { onAddArticlePedido, onArticleReset, onHiddeMdlArticleDetailsInsert, onShowMdlArticle } from "../../store";
-import { useForm } from "../../hooks";
+import { useMdlPedidoArticuloInsert } from "../../hooks";
+import { nameArticle } from "../../helpers";
 
 export const MdlPedidoArticuloInsert = () => {
-    
-    const dispatch = useDispatch();
 
-    const { user } = useSelector( state => state.auth);
-    const { articleSelect } = useSelector( state => state.articulo);
-    const { isShowMdlArticleDetailsInsert } = useSelector( state => state.ui);
-
-    const [isBtnDisabled, setIsBtnDisabled] = useState(true)
-
-    const inputRef = useRef(null);
-    const { cantidad, valor, total, onInputChange, onResetForm, formState, setFormState } = useForm(articleSelect);
-
-    useEffect(() => {
-        inputRef.current.focus();
-    }, [])
-
-    useEffect(() => {
-        const type = typeof Number(cantidad);
-
-        if( type != 'number' || (cantidad <= 0) || !cantidad || (valor <= 0) ){
-            setIsBtnDisabled(true);
-            setFormState({
-                ...formState,
-                total: 0
-            });
-            return;
-        }
-        
-        setFormState({
-            ...formState,
-            cantidad: Number(cantidad),
-            valor: Number(valor),
-            total: Number(cantidad * valor)
-        });
-        setIsBtnDisabled(false);
-
-    }, [cantidad, valor])
-
-    const handleClose = () => {
-        onResetForm();
-        dispatch(onArticleReset());
-        dispatch(onShowMdlArticle());
-        dispatch(onHiddeMdlArticleDetailsInsert());
-    }
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        dispatch(onAddArticlePedido(formState));
-        dispatch(onHiddeMdlArticleDetailsInsert());
-    }
+    const { isShowMdlArticleDetailsInsert, handleClose, articleSelect, onSubmit, valor, user, onInputChange, cantidad, inputRef, total, isBtnDisabled  } = useMdlPedidoArticuloInsert();
 
     return (
         <>
@@ -66,7 +16,7 @@ export const MdlPedidoArticuloInsert = () => {
                 className="modal-lg"
                 >
                 <Modal.Header closeButton>
-                    <Modal.Title>{ articleSelect.articulos_descripcion }</Modal.Title>
+                    <Modal.Title>{ nameArticle(articleSelect.familia_nombre, articleSelect.articulos_descripcion) }</Modal.Title>
                 </Modal.Header>
                 
                 <Modal.Body>

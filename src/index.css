@@ -47,3 +47,7 @@ a.btn-cliente, button.btn-cliente{
 .inner-btn:hover {
     color: blue;
 }
+
+table tr.cursor-pointer{
+    cursor: pointer;
+}

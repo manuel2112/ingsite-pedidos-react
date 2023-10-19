@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../hooks';
 import { LoginPage } from '../auth';
-import { ClienteFrecuentePage, ClienteNoFrecuentePage, ClienteNuevo, HomePage, PedidoPage } from '../pedido';
+import { ClienteFrecuentePage, ClienteNoFrecuentePage, ClienteNuevo, HomePage, PedidoListPage, PedidoPage } from '../pedido';
 
 export const AppRouter = () => {
 
@@ -40,6 +40,7 @@ export const AppRouter = () => {
                         <Route path='/pedido/cliente-frecuente' element={<ClienteFrecuentePage />} />
                         <Route path='/pedido/cliente-no-frecuente' element={<ClienteNoFrecuentePage />} />
                         <Route path='/pedido/cliente-nuevo' element={<ClienteNuevo />} />
+                        <Route path='/pedido/listado' element={<PedidoListPage />} />
                         <Route path='/*' element={<Navigate to='/' />} />
                     </>
                 ) 

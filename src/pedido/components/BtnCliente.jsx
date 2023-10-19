@@ -25,9 +25,6 @@ export const BtnCliente = ({cliente}) => {
 
     const onCliente = () => {
         dispatch(onClienteSelect({id:cliente.clientes_id, name:cliente.razon}));
-        // dispatch(onArticleSelect(cliente));
-        // dispatch(onHiddeMdlArticle());
-        // dispatch(onShowMdlArticleDetailsInsert());
     }
 
     return (

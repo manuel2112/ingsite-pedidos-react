@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { pedidoApi } from "../api";
-import Swal from "sweetalert2";
-import { useAuthStore } from "./useAuthStore";
-import { onResetFormPedido } from "../store";
 import { useNavigate } from "react-router-dom";
-import { useClienteStore } from "./useClienteStore";
+import Swal from "sweetalert2";
+import { pedidoApi } from "../api";
+import { useAuthStore, useClienteStore } from "./";
+import { onListPedido, onResetFormPedido } from "../store";
 
 export const usePedidoStore = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { pedido } = useSelector( state => state.pedido );
+
+    const { pedido, pedidoList, arrIdPedido } = useSelector( state => state.pedido );
+    
     const { user } = useAuthStore();
     const { clienteSelect } = useClienteStore();
 
@@ -55,11 +56,37 @@ export const usePedidoStore = () => {
 
     }
 
+    const startPedidosList = async() => {    
+        
+        Swal.showLoading();
+        
+        try {
+
+            const {data} = await pedidoApi.get('/ultimos');
+
+            if(data.success){
+                dispatch(onListPedido(data.info.res));
+                Swal.close();
+            }else{
+                //TODO ERROR
+                Swal.fire('ERROR', data.info, 'error' )
+            }
+            
+        } catch (error) {
+            console.log(error);
+            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+        }
+    }
+
     return {
         //PROPIEDADES
+        pedido, 
+        pedidoList, 
+        arrIdPedido,
 
         //MÉTODOS
-        startPedido
+        startPedido,
+        startPedidosList
 
     }
 }

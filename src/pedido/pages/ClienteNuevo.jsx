@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useClienteStore } from "../../hooks"
 import { PedidoLayout } from "../layout/PedidoLayout"
-import { onResetMdlBox, onShowMdlArticle } from "../../store";
+import { onArticleReset, onClienteSelectReset, onResetFormPedido, onResetMdlBox, onResetPedido, onShowMdlArticle } from "../../store";
 import { MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
 
 export const ClienteNuevo = () => {
@@ -10,7 +11,16 @@ export const ClienteNuevo = () => {
 
     const { clienteSelect } = useClienteStore();
     const { pedido } = useSelector( state => state.pedido );
-    const { isShowMdlArticle, isShowMdlArticleDetailsInsert, isShowMdlArticleDetailsUpdate } = useSelector( state => state.ui );
+    const { isShowMdlArticle, isShowMdlArticleDetailsInsert, isShowMdlArticleDetailsUpdate, isResetForm } = useSelector( state => state.ui ); 
+    
+    useEffect(() => {        
+        if( isResetForm ){
+            dispatch(onResetPedido());
+            dispatch(onClienteSelectReset());
+            dispatch(onArticleReset());
+            dispatch(onResetFormPedido());
+        }
+    }, [isResetForm])
 
     const openMdlArticle = () => {
         dispatch(onResetMdlBox());

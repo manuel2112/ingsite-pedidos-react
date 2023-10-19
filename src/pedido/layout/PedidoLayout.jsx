@@ -4,7 +4,7 @@ import { Navbar } from "../components";
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import { onClienteSelectReset, onResetPedido } from '../../store';
+import { onClienteSelectReset, onListPedidoReset, onResetPedido } from '../../store';
 import { useClienteStore } from '../../hooks';
 
 export const PedidoLayout = ({children}) => {
@@ -15,6 +15,7 @@ export const PedidoLayout = ({children}) => {
     const { clienteSelect } = useClienteStore();
 
     const onHome = () => {
+        dispatch(onListPedidoReset());
         if( (pedido.length > 0) || clienteSelect.name ){
             Swal.fire({
                 title: 'PEDIDO',

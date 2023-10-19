@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import { pedidoApi } from "../api";
 import { onArticles, onResetArticles } from "../store";
-import Swal from "sweetalert2";
 
 export const useArticuloStore = () => {
 
@@ -22,14 +22,12 @@ export const useArticuloStore = () => {
                 Swal.close();
             }else{
                 //TODO ERROR
+                Swal.fire('ERROR', 'FAVOR RECARGAR SISTEMA', 'error' );
             }
             
         } catch (error) {
             console.log(error);
-        //     dispatch(onLogout('Credenciales incorrectas'));
-        //     setTimeout(() => {
-        //         dispatch(clearErrorMessage());
-        //     }, 10);
+            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
         }
 
     }

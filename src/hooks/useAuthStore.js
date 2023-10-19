@@ -6,8 +6,8 @@ import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store";
 
 export const useAuthStore = () => {
 
-    const {status, user, errorMessage} = useSelector( state => state.auth );
     const dispatch = useDispatch();
+    const {status, user, errorMessage} = useSelector( state => state.auth );
 
     const startLogin = async({user, pass}) => {
         
@@ -80,8 +80,8 @@ export const useAuthStore = () => {
 
         Swal.showLoading();
         localStorage.clear();
-        Swal.close();
         dispatch(onLogout());
+        Swal.close();
 
     }
 

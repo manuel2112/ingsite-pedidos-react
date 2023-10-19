@@ -1,7 +1,7 @@
 import { useClienteFrecuente } from "../../hooks";
 import { BtnCliente, MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
 import { PedidoLayout } from "../layout/PedidoLayout";
-import { FormControl, InputGroup } from "react-bootstrap";
+import { Form, FormControl, InputGroup } from "react-bootstrap";
 
 export const ClienteFrecuentePage = () => {
 
@@ -14,7 +14,7 @@ export const ClienteFrecuentePage = () => {
             </div>
 
             <div className="col-12">
-                <form>
+                <Form>
                     <InputGroup className="mb-3">
                         <FormControl
                             placeholder="BUSCAR CLIENTE..."
@@ -34,7 +34,7 @@ export const ClienteFrecuentePage = () => {
                             X
                         </button>
                     </InputGroup>
-                </form>
+                </Form>
             </div>
 
             <div className="list-group list-box-article mt-2">

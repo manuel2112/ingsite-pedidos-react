@@ -1,15 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { pedidoApi } from "../api";
 import { onClienteSelect, onClientes, onHiddeClienteInsert, onResetClientes } from "../store";
 
 export const useClienteStore = () => {
-
-    const { clientes, clientesTemp, clienteSelect } = useSelector( state => state.cliente);
-
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const { clientes, clientesTemp, clienteSelect } = useSelector( state => state.cliente);
 
     const startClientes = async() => {
         
@@ -25,15 +25,12 @@ export const useClienteStore = () => {
                 Swal.close();
             }else{
                 //TODO ERROR
-                console.log(data);
+                Swal.fire('ERROR', 'FAVOR RECARGAR SISTEMA', 'error' );
             }
             
         } catch (error) {
             console.log(error);
-        //     dispatch(onLogout('Credenciales incorrectas'));
-        //     setTimeout(() => {
-        //         dispatch(clearErrorMessage());
-        //     }, 10);
+            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
         }
 
     }

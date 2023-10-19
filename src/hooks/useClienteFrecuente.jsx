@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useClienteStore } from "./useClienteStore";
 import { useEffect, useState } from "react";
+import { useClienteStore } from "./useClienteStore";
 import { useForm } from "./useForm";
 import { onArticleReset, onClienteSelectReset, onGetClientes, onResetArticlesTemp, onResetFormPedido, onResetMdlBox, onResetPedido, onSearchCliente, onShowMdlArticle } from "../store";
 
@@ -16,17 +16,17 @@ export const useClienteFrecuente = () => {
     const { clientesTemp, clienteSelect } = useClienteStore();
     const { isShowMdlArticle, isShowMdlArticleDetailsInsert, isShowMdlArticleDetailsUpdate, isResetForm } = useSelector( state => state.ui );
 
+    const { formClienteName, onInputChange, onResetForm, setFormState } = useForm(formCliente);
+    
     const [ isDisabled, setIsDisabled ] = useState(false);
     const [ showButton, setShowButton ] = useState(false);
     const [ isButtonChangeClienteShow, setIsButtonChangeClienteShow ] = useState(true);
-    const { formClienteName, onInputChange, onResetForm, setFormState } = useForm(formCliente);
 
     useEffect(() => {        
         dispatch(onGetClientes());
     }, [])
     
-    useEffect(() => {
-        
+    useEffect(() => {        
         if( isResetForm ){
             dispatch(onResetPedido());
             dispatch(onClienteSelectReset());
@@ -36,32 +36,25 @@ export const useClienteFrecuente = () => {
         }
     }, [isResetForm])
     
-    useEffect(() => {
-        
+    useEffect(() => {        
         if( pedido.length === 0 ) {
             setIsButtonChangeClienteShow(true);
             return;
         }
-
         setIsButtonChangeClienteShow(false);
-
     }, [pedido])
 
     useEffect(() => {
-
         if( clienteSelect.id == undefined ) {
             setIsDisabled(false);
             return;
         }
-
         setIsDisabled(true);
         setShowButton(false);
         setFormState({ formClienteName: clienteSelect.name });
-
     }, [clienteSelect])
 
     useEffect(() => {
-
         if( clienteSelect.id != undefined ) return;
 
         const term = formClienteName.toUpperCase().trim(); 
@@ -69,11 +62,9 @@ export const useClienteFrecuente = () => {
         if( term.length === 0 ) {
             setShowButton(false);
             return;
-        }
-        
+        }        
         setShowButton(true);
         dispatch(onSearchCliente(term));
-
     }, [formClienteName])
 
     const onChangeCliente = () => {
@@ -95,7 +86,6 @@ export const useClienteFrecuente = () => {
         dispatch(onGetClientes());
     };
 
-
     return {
         //PROPIEDADES
         formClienteName,
@@ -113,6 +103,5 @@ export const useClienteFrecuente = () => {
         handleClick,
         openMdlArticle,
         onChangeCliente,
-
     }
 }
