@@ -1,5 +1,5 @@
 import { useClienteFrecuente } from "../../hooks";
-import { BtnCliente, MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
+import { BtnCliente, HeaderBreadcrumb, MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
 import { PedidoLayout } from "../layout/PedidoLayout";
 import { Form, FormControl, InputGroup } from "react-bootstrap";
 
@@ -10,7 +10,7 @@ export const ClienteFrecuentePage = () => {
     return (
         <PedidoLayout>
             <div className="col-12">
-                <h1>Cliente Frecuente</h1>
+                <HeaderBreadcrumb title="CLIENTE FRECUENTE" />
             </div>
 
             <div className="col-12">
@@ -54,7 +54,7 @@ export const ClienteFrecuentePage = () => {
                         )
                     :
                     (
-                        <div className="col-12 mt-4 mb-3 d-flex justify-content-center">
+                        <div className="col-12 mt-1 mb-3 d-flex justify-content-center">
                             <button
                                 type="button"
                                 className="btn btn-outline-primary mx-3"

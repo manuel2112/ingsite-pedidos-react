@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm, useClienteStore } from "./";
+import { useForm, useClienteStore } from ".";
 import { onArticleReset, onClienteSelect, onClienteSelectReset, onResetArticlesTemp, onResetFormPedido, onResetMdlBox, onResetPedido, onShowMdlArticle } from "../store";
 
 const formCliente = {

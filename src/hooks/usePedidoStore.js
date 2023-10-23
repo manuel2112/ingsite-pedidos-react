@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { pedidoApi } from "../api";
 import { useAuthStore, useClienteStore } from "./";
-import { onListPedido, onResetFormPedido } from "../store";
+import { onHiddeBuscarPorFecha, onHiddeLoading, onListPedido, onListPedidoReset, onResetFormPedido, onSearchTitle } from "../store";
 
 export const usePedidoStore = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { pedido, pedidoList, arrIdPedido } = useSelector( state => state.pedido );
+    const { pedido, pedidoList, arrIdPedido, searchTitle } = useSelector( state => state.pedido );
     
     const { user } = useAuthStore();
     const { clienteSelect } = useClienteStore();
@@ -78,15 +78,45 @@ export const usePedidoStore = () => {
         }
     }
 
+    const startSearchList = async({unica = '',desde = '', hasta = ''}) => {
+
+        Swal.showLoading();
+        const fecha = {};
+        fecha.unica = unica; 
+        fecha.desde = desde; 
+        fecha.hasta = hasta;
+        
+        try {
+
+            const {data} = await pedidoApi.post('/search', {fecha});
+            
+            dispatch(onHiddeLoading());
+
+            if(data.success){
+                dispatch(onListPedidoReset());
+                dispatch(onHiddeBuscarPorFecha());
+                dispatch(onSearchTitle(data.caption));
+                dispatch(onListPedido(data.info.res));
+                Swal.close();
+            }else{
+                Swal.fire('ERROR', data.info, 'error' )
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+        }
+    }
+
     return {
         //PROPIEDADES
         pedido, 
         pedidoList, 
         arrIdPedido,
+        searchTitle,
 
         //MÉTODOS
         startPedido,
-        startPedidosList
-
+        startPedidosList,
+        startSearchList,
     }
 }

@@ -7,8 +7,7 @@ export const MdlPedidoDetalle = () => {
 
     const dispatch = useDispatch();
     const { isShowMdlPedidoDetail } = useSelector( state => state.ui );
-    const { pedidoSelect } = useSelector( state => state.pedido );
-    
+    const { pedidoSelect } = useSelector( state => state.pedido );    
 
     const handleClose = () => {
         dispatch(onHiddePedidoDetail());

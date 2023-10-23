@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const uiSlice = createSlice({
     name: 'ui',
     initialState: {
+        isLoading: false,
         isShowMdlArticle: false,
         isShowMdlArticleBox: false,
         isShowMdlArticleDetailsInsert: false,
@@ -11,6 +12,7 @@ export const uiSlice = createSlice({
         isResetForm: false,
         isShowMdlClienteInsert: false,
         isShowMdlPedidoDetail: false,
+        isShowMdlBuscarPorFecha: false,
     },
     reducers: {
         onShowMdlArticle: ( state ) => {
@@ -58,6 +60,18 @@ export const uiSlice = createSlice({
         onHiddePedidoDetail: ( state ) => {
             state.isShowMdlPedidoDetail = false;
         },
+        onShowBuscarPorFecha: ( state ) => {
+            state.isShowMdlBuscarPorFecha = true;
+        },
+        onHiddeBuscarPorFecha: ( state ) => {
+            state.isShowMdlBuscarPorFecha = false;
+        },
+        onShowLoading: ( state ) => {
+            state.isLoading = true;
+        },
+        onHiddeLoading: ( state ) => {
+            state.isLoading = false;
+        },
     }
 });
 
@@ -75,5 +89,9 @@ export const {
     onShowClienteInsert,
     onHiddeClienteInsert,
     onShowPedidoDetail,
-    onHiddePedidoDetail
+    onHiddePedidoDetail,
+    onShowBuscarPorFecha,
+    onHiddeBuscarPorFecha,
+    onShowLoading,
+    onHiddeLoading,
 } = uiSlice.actions;

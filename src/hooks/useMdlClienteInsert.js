@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRut } from "react-rut-formatter";
-import { useClienteStore, useForm } from "./";
+import { useClienteStore, useForm } from ".";
 import { onHiddeClienteInsert } from "../store";
 
 const formNuevoCliente = {

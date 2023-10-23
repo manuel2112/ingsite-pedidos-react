@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useClienteStore } from "../../hooks"
 import { PedidoLayout } from "../layout/PedidoLayout"
 import { onArticleReset, onClienteSelectReset, onResetFormPedido, onResetMdlBox, onResetPedido, onShowMdlArticle } from "../../store";
-import { MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
+import { HeaderBreadcrumb, MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
 
 export const ClienteNuevo = () => {
 
@@ -30,7 +30,7 @@ export const ClienteNuevo = () => {
     return (
         <PedidoLayout>
             <div className="col-12">
-                <h1>Cliente Nuevo</h1>
+                <HeaderBreadcrumb title="CLIENTE NUEVO" />
             </div>
 
             <div className="col-12">

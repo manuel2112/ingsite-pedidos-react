@@ -9,7 +9,7 @@ export const TblResumenPedido = () => {
 
     return (
         <>
-            <Table striped hover>
+            <Table striped hover responsive>
                 <thead>
                     <tr>
                         <th>#</th>

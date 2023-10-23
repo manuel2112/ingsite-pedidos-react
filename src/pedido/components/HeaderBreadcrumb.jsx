@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
-import { logoCliente } from "../../helpers";
-import { Navbar } from "../components";
+import { Breadcrumb } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
 import { onClienteSelectReset, onListPedidoReset, onResetPedido } from '../../store';
 import { useClienteStore } from '../../hooks';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
-export const PedidoLayout = ({children}) => {
+export const HeaderBreadcrumb = ({title}) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -40,29 +39,17 @@ export const PedidoLayout = ({children}) => {
     }
 
     return (
-        <>
-            <Navbar />
-
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <img 
-                            src={logoCliente} 
-                            alt='INGSITE' 
-                            className='logo-cliente-site'
-                            style={{cursor: 'pointer'}}
-                            onClick={onHome}
-                            />
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    {children}
-                </div>
-            </div>
-        </>
+        <Breadcrumb>
+            <Breadcrumb.Item onClick={onHome}>HOME</Breadcrumb.Item>
+            <Breadcrumb.Item active>{title}</Breadcrumb.Item>
+        </Breadcrumb>
     )
 }
 
-PedidoLayout.propTypes = {
-    children: PropTypes.node,
+HeaderBreadcrumb.propTypes = {
+    title: PropTypes.string
 };
+
+HeaderBreadcrumb.defaultProps = {
+    title: ''
+}

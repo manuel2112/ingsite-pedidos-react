@@ -1,6 +1,6 @@
 import { useClienteNoFrecuente } from "../../hooks";
 import { PedidoLayout } from "../layout/PedidoLayout";
-import { MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
+import { HeaderBreadcrumb, MdlPedido, MdlPedidoArticuloInsert, MdlPedidoArticuloUpdate, TblResumenPedido } from "../components";
 
 export const ClienteNoFrecuentePage = () => {
 
@@ -8,8 +8,8 @@ export const ClienteNoFrecuentePage = () => {
 
     return (
         <PedidoLayout>
-            <div className="col-12">
-                <h1>Cliente No Frecuente</h1>
+            <div className="col-12 mb-2">
+                <HeaderBreadcrumb title="CLIENTE NO FRECUENTE" />
             </div>
 
             <div className="col-12">
