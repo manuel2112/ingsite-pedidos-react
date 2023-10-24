@@ -9,7 +9,7 @@ export const ClienteNoFrecuentePage = () => {
     return (
         <PedidoLayout>
             <div className="col-12 mb-2">
-                <HeaderBreadcrumb title="CLIENTE NO FRECUENTE" />
+                <HeaderBreadcrumb title="CLIENTE NO FRECUENTE" pedidoPage={true} />
             </div>
 
             <div className="col-12">

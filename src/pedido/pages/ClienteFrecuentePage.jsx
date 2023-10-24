@@ -10,7 +10,7 @@ export const ClienteFrecuentePage = () => {
     return (
         <PedidoLayout>
             <div className="col-12">
-                <HeaderBreadcrumb title="CLIENTE FRECUENTE" />
+                <HeaderBreadcrumb title="CLIENTE FRECUENTE" pedidoPage={true} />
             </div>
 
             <div className="col-12">

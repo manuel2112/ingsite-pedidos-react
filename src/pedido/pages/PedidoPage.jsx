@@ -26,7 +26,7 @@ export const PedidoPage = () => {
     return (
         <PedidoLayout>
             <div className="col-12">
-                <HeaderBreadcrumb title="INGRESAR PEDIDO" />
+                <HeaderBreadcrumb title="PEDIDO" />
             </div>
 
             <div className="col-12 col-sm-4 mb-2">

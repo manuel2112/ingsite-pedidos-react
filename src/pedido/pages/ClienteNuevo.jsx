@@ -30,7 +30,7 @@ export const ClienteNuevo = () => {
     return (
         <PedidoLayout>
             <div className="col-12">
-                <HeaderBreadcrumb title="CLIENTE NUEVO" />
+                <HeaderBreadcrumb title="CLIENTE NUEVO" pedidoPage={true} />
             </div>
 
             <div className="col-12">
