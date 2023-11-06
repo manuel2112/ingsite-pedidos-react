@@ -44,10 +44,7 @@ export const AppRouter = () => {
                         <Route path='/*' element={<Navigate to='/' />} />
                     </>
                 ) 
-            }            
-            
-
-            
+            }
 
         </Routes>
     )

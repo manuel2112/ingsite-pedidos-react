@@ -20,22 +20,25 @@ export const useAuthStore = () => {
                 user,
                 pass 
             }
-            const {data} = await pedidoApi.post('/usuario', {login});
+            
+            const {data} = await pedidoApi.post('/auth', login );
 
-            if(data.success){
-                localStorage.setItem(nameToken, data.token);
-                dispatch(onLogin({name: data.user_name, id: data.user_id, perfil: data.user_perfil}));
-                Swal.close();
-            }else{
-                dispatch(onLogout(data.msg));
-                setTimeout(() => {
-                    dispatch(clearErrorMessage());
-                }, 10);
-            }
+            console.log(data);
+
+            // if(data.success){
+            //     localStorage.setItem(nameToken, data.token);
+            //     dispatch(onLogin({name: data.user_name, id: data.user_id, perfil: data.user_perfil}));
+            //     Swal.close();
+            // }else{
+            //     dispatch(onLogout(data.msg));
+            //     setTimeout(() => {
+            //         dispatch(clearErrorMessage());
+            //     }, 10);
+            // }
             
         } catch (error) {
             console.log(error);
-            dispatch(onLogout('Credenciales incorrectas'));
+            dispatch(onLogout(error.response.data.msg));
             setTimeout(() => {
                 dispatch(clearErrorMessage());
             }, 10);

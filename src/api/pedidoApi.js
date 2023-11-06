@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { nameToken } from '../helpers';
 
+// const apiLocal  = 'http://localhost:4000/api';
 const apiLocal  = 'http://localhost:8080/ingsite/api-pedidos/apirestjwt';
-const apiServer = 'https://ingsite.cl/api/api-juane/apirest';
+const apiServer = 'https://ingsite.cl/api/api-pedidos/apirestjwt';
 
 const VITE_API_URL = (location.hostname === "localhost" || location.hostname === "127.0.0.1") 
                 ? apiLocal
