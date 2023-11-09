@@ -62,7 +62,7 @@ export const PedidoListPage = () => {
                             <tbody>
                                 {
                                     pedidoList.map( (pedido, idx) => (
-                                        <BtnPedido key={ pedido.PREVENTA.preventa_id } pedido={pedido} idx={idx + 1} />
+                                        <BtnPedido key={ pedido.preventa_id } pedido={pedido} idx={idx + 1} />
                                     ))
                                 }
                             </tbody>

@@ -16,7 +16,7 @@ export const MdlPedidoArticuloUpdate = () => {
                 className="modal-lg"
                 >
                 <Modal.Header closeButton>
-                    <Modal.Title>{ nameArticle(articleSelect.familia_nombre, articleSelect.articulos_descripcion) }</Modal.Title>
+                    <Modal.Title>{ nameArticle(articleSelect.familia.familia_nombre, articleSelect.articulos_descripcion) }</Modal.Title>
                 </Modal.Header>
                 
                 <Modal.Body>

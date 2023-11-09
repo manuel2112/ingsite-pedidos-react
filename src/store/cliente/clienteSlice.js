@@ -9,7 +9,7 @@ export const clienteSlice = createSlice({
     },
     reducers: {
         onClientes: ( state, {payload} ) => {
-            state.clientes = payload;
+            state.clientes = payload.clientes;
         },
         onGetClientes: ( state ) => {
             state.clientesTemp  = state.clientes;

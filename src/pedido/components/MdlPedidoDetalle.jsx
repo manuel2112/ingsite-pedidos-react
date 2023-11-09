@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, Table } from "react-bootstrap"
-import { onHiddePedidoDetail } from "../../store";
+import { onHiddePedidoDetail, onPedidoSelectReset } from "../../store";
 import { currencyFormat, fechaLatina, nameArticle } from "../../helpers";
 
 export const MdlPedidoDetalle = () => {
@@ -10,6 +10,7 @@ export const MdlPedidoDetalle = () => {
     const { pedidoSelect } = useSelector( state => state.pedido );    
 
     const handleClose = () => {
+        dispatch(onPedidoSelectReset());
         dispatch(onHiddePedidoDetail());
     }
 
@@ -23,7 +24,7 @@ export const MdlPedidoDetalle = () => {
                 className="modal-lg"
                 >
                 <Modal.Header closeButton>
-                    <Modal.Title>DETALLE PEDIDO CÓDIGO { pedidoSelect.PREVENTA.preventa_id }</Modal.Title>
+                    <Modal.Title>DETALLE PEDIDO CÓDIGO { pedidoSelect.preventa_id }</Modal.Title>
                 </Modal.Header>
                 
                 <Modal.Body>
@@ -32,31 +33,31 @@ export const MdlPedidoDetalle = () => {
                         <tbody>
                             <tr>
                                 <th className="table-dark text-center">CÓDIGO</th>
-                                <td className="text-center">{ pedidoSelect.PREVENTA.preventa_id }</td>
+                                <td className="text-center">{ pedidoSelect.preventa_id }</td>
                             </tr>
                             <tr>
                                 <th className="table-dark text-center">FECHA</th>
-                                <td className="text-center">{ fechaLatina(pedidoSelect.PREVENTA.hora) }</td>
+                                <td className="text-center">{ fechaLatina(pedidoSelect.hora) }</td>
                             </tr>
                             <tr>
                                 <th className="table-dark text-center">CLIENTE</th>
-                                <td className="text-center">{ pedidoSelect.PREVENTA.retira_nombre }</td>
+                                <td className="text-center">{ pedidoSelect.retira_nombre }</td>
                             </tr>
                             <tr>
                                 <th className="table-dark text-center">VENDEDOR</th>
-                                <td className="text-center">{ pedidoSelect.VENDEDOR.usuario_nombre }</td>
+                                <td className="text-center">{ pedidoSelect.usuario.usuario_nombre }</td>
                             </tr>
                             <tr>
                                 <th className="table-dark text-center">TOTAL</th>
-                                <td className="text-center">{ currencyFormat(Number(pedidoSelect.PREVENTA.total)) }</td>
+                                <td className="text-center">{ currencyFormat(Number(pedidoSelect.total)) }</td>
                             </tr>
                         </tbody>
                     </Table>
 
                     {
-                        pedidoSelect.DETALLE.map( detalle => (
+                        pedidoSelect.detpreventas.map( detalle => (
                             <Table striped bordered hover className="caption-top" key={ detalle.detpreventa_id }>
-                                <caption><strong>{ nameArticle(detalle.familia_nombre, detalle.detalle)}</strong></caption>
+                                <caption><strong>{ nameArticle(detalle.articulo.familia.familia_nombre, detalle.detalle)}</strong></caption>
                                 <tbody>
                                     <tr>
                                         <th className="table-dark text-center">COD. ART.</th>

@@ -23,18 +23,16 @@ export const useAuthStore = () => {
             
             const {data} = await pedidoApi.post('/auth', login );
 
-            console.log(data);
-
-            // if(data.success){
-            //     localStorage.setItem(nameToken, data.token);
-            //     dispatch(onLogin({name: data.user_name, id: data.user_id, perfil: data.user_perfil}));
-            //     Swal.close();
-            // }else{
-            //     dispatch(onLogout(data.msg));
-            //     setTimeout(() => {
-            //         dispatch(clearErrorMessage());
-            //     }, 10);
-            // }
+            if(data.success){
+                localStorage.setItem(nameToken, data.token);
+                dispatch(onLogin({name: data.user_name, id: data.user_id, perfil: data.user_perfil}));
+                Swal.close();
+            }else{
+                dispatch(onLogout(data.msg));
+                setTimeout(() => {
+                    dispatch(clearErrorMessage());
+                }, 10);
+            }
             
         } catch (error) {
             console.log(error);
@@ -58,7 +56,7 @@ export const useAuthStore = () => {
 
         try {
 
-            const {data} = await pedidoApi.get(`/tokenRenew`);
+            const {data} = await pedidoApi.get(`/auth/renew`);
             
             if(data.success){
                 localStorage.setItem(nameToken, data.token);

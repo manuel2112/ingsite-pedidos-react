@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { pedidoApi } from "../api";
 import { useAuthStore, useClienteStore } from "./";
-import { onHiddeBuscarPorFecha, onHiddeLoading, onListPedido, onListPedidoReset, onResetFormPedido, onSearchTitle } from "../store";
+import { onHiddeBuscarPorFecha, onHiddeLoading, onListPedido, onListPedidoReset, onPedidoSelect, onResetFormPedido, onSearchTitle, onShowPedidoDetail } from "../store";
+import { nameToken } from "../helpers";
 
 export const usePedidoStore = () => {
 
@@ -28,13 +29,14 @@ export const usePedidoStore = () => {
                 total:      total, 
                 vendedor:   user.id,
             }
-            const {data} = await pedidoApi.post('/pedido', dataString);
+            const {data} = await pedidoApi.post('/preventa', dataString);
 
             if(data.success){
+                localStorage.setItem(nameToken, data.token);
                 dispatch(onResetFormPedido());
                 Swal.fire({
                     title: 'PEDIDO ENVIADO',
-                    text: data.info,
+                    text: data.msg,
                     icon: 'success',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#198754',
@@ -62,10 +64,11 @@ export const usePedidoStore = () => {
         
         try {
 
-            const {data} = await pedidoApi.get('/ultimos');
+            const {data} = await pedidoApi.get('/preventa');
 
             if(data.success){
-                dispatch(onListPedido(data.info.res));
+                localStorage.setItem(nameToken, data.token);
+                dispatch(onListPedido(data));
                 Swal.close();
             }else{
                 //TODO ERROR
@@ -78,17 +81,46 @@ export const usePedidoStore = () => {
         }
     }
 
-    const startSearchList = async({unica = '',desde = '', hasta = ''}) => {
-
+    const startPedidosById = async(id) => {    
+        
         Swal.showLoading();
-        const fecha = {};
-        fecha.unica = unica; 
-        fecha.desde = desde; 
-        fecha.hasta = hasta;
         
         try {
 
-            const {data} = await pedidoApi.post('/search', {fecha});
+            const {data} = await pedidoApi.get(`/preventa/get-by-id/${id}`);
+
+            if(data.success){
+                localStorage.setItem(nameToken, data.token);
+                dispatch(onPedidoSelect(data.preventa));
+                dispatch(onShowPedidoDetail());
+                Swal.close();
+            }else{
+                Swal.fire('ERROR', data.info, 'error' )
+            }
+            
+        } catch (error) {
+            console.log(error);
+            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+        }
+    }
+
+    const startSearchList = async({unica = '',desde = '', hasta = ''}) => {
+
+        Swal.showLoading();
+        // const fecha = {};
+        // fecha.unica = unica; 
+        // fecha.desde = desde; 
+        // fecha.hasta = hasta;
+        
+        try {
+
+            const {data} = await pedidoApi.get('/preventa/get-by-date', {
+                params: {
+                    unica,
+                    desde,
+                    hasta
+                }
+            });
             
             dispatch(onHiddeLoading());
 
@@ -96,7 +128,7 @@ export const usePedidoStore = () => {
                 dispatch(onListPedidoReset());
                 dispatch(onHiddeBuscarPorFecha());
                 dispatch(onSearchTitle(data.caption));
-                dispatch(onListPedido(data.info.res));
+                dispatch(onListPedido(data));
                 Swal.close();
             }else{
                 Swal.fire('ERROR', data.info, 'error' )
@@ -118,5 +150,6 @@ export const usePedidoStore = () => {
         startPedido,
         startPedidosList,
         startSearchList,
+        startPedidosById
     }
 }

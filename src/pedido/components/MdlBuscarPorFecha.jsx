@@ -100,6 +100,7 @@ export const MdlBuscarPorFecha = () => {
                                         selectsRange={true}
                                         startDate={startDate}
                                         endDate={endDate}
+                                        dateFormat="dd/MM/yy"
                                         onChange={(update) => {
                                             setDateRange(update);
                                         }}

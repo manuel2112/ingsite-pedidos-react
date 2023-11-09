@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { currencyFormat, fechaLatinaSinHora } from '../../helpers';
-import { onPedidoSelect, onShowPedidoDetail } from '../../store';
+// import { onPedidoSelect, onShowPedidoDetail } from '../../store';
+import { usePedidoStore } from '../../hooks';
 
 export const BtnPedido = ({pedido, idx}) => {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
+    const { startPedidosById } = usePedidoStore();
 
     const onDetails = () => {
-        dispatch(onPedidoSelect(pedido));
-        dispatch(onShowPedidoDetail());
+        startPedidosById(pedido.preventa_id);
+        // dispatch(onPedidoSelect(pedido));
+        // dispatch(onShowPedidoDetail());
     }
 
     return (
@@ -17,8 +20,8 @@ export const BtnPedido = ({pedido, idx}) => {
             className="cursor-pointer"
             onClick={onDetails}>
             <td className="text-center">{ idx }</td>
-            <td className="text-center">{ fechaLatinaSinHora(pedido.PREVENTA.fecha) }<br />{ pedido.PREVENTA.preventa_id }</td>
-            <td className="text-center">{ pedido.PREVENTA.retira_nombre }<br />{ currencyFormat(Number(pedido.PREVENTA.total)) }</td>
+            <td className="text-center">{ fechaLatinaSinHora(pedido.fecha) }<br />{ pedido.preventa_id }</td>
+            <td className="text-center">{ pedido.retira_nombre }<br />{ currencyFormat(Number(pedido.total)) }</td>
         </tr>
     )
 }

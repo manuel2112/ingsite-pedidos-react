@@ -41,7 +41,7 @@ export const pedidoSlice = createSlice({
             state.arrIdPedido = [];
         },
         onListPedido: (state, {payload}) => {
-            state.pedidoList = payload;
+            state.pedidoList = payload.preventa;
         },
         onListPedidoReset: ( state ) => {
             state.pedidoList = [];

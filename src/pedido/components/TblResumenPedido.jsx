@@ -27,7 +27,7 @@ export const TblResumenPedido = () => {
                         pedido.map( (ped, idx) => (
                             <tr key={ ped.articulos_id }>
                                 <td width={ '2%' }>{ idx + 1 }</td>
-                                <td>{ nameArticle(ped.familia_nombre, ped.articulos_descripcion) }</td>
+                                <td>{ nameArticle(ped.familia.familia_nombre, ped.articulos_descripcion) }</td>
                                 <td>{ currencyFormat(ped.valor) }</td>
                                 <td width={ '10%' }>{ ped.cantidad }</td>
                                 <td>{ currencyFormat(ped.total) }</td>

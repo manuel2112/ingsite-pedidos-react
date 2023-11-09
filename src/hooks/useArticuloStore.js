@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { pedidoApi } from "../api";
 import { onArticles, onResetArticles } from "../store";
+import { nameToken } from "../helpers";
 
 export const useArticuloStore = () => {
 
@@ -15,10 +16,11 @@ export const useArticuloStore = () => {
         
         try {
             
-            const {data} = await pedidoApi.get('/articulos');
+            const {data} = await pedidoApi.get('/article');
 
             if(data.success){
-                dispatch(onArticles(data.info));
+                localStorage.setItem(nameToken, data.token);
+                dispatch(onArticles(data));
                 Swal.close();
             }else{
                 //TODO ERROR

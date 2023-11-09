@@ -18,13 +18,12 @@ export const useClienteStore = () => {
         
         try {
             
-            const {data} = await pedidoApi.get('/clientes');
+            const {data} = await pedidoApi.get('/client');
 
             if(data.success){
-                dispatch(onClientes(data.info));
+                dispatch(onClientes(data));
                 Swal.close();
             }else{
-                //TODO ERROR
                 Swal.fire('ERROR', 'FAVOR RECARGAR SISTEMA', 'error' );
             }
             

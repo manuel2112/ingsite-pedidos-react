@@ -36,7 +36,7 @@ export const BtnArticulo = ({article}) => {
             className="list-group-item d-flex justify-content-between align-items-center"
             onClick={onArticle}
             disabled={isDisabled}>
-            { nameArticle(article.familia_nombre, article.articulos_descripcion) }
+            { nameArticle(article.familia.familia_nombre, article.articulos_descripcion) }
             <div>
                 <Badge bg={ article.articulos_stock > 0 ? 'secondary' : 'danger' }>{ article.articulos_stock }</Badge> <br />
                 <Badge bg="primary">{ currencyFormat(Number(article.articulos_venta)) }</Badge>

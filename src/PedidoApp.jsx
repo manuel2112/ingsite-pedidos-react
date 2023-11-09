@@ -6,7 +6,8 @@ import { store } from "./store"
 export const PedidoApp = () => {
     return (
         <Provider store={store}>
-            <BrowserRouter basename="/pedidos/test">
+            <BrowserRouter>
+            {/* <BrowserRouter basename="/pedidos/test"> */}
                 <AppRouter />
             </BrowserRouter>
         </Provider>
