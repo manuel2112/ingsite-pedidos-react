@@ -3,13 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { pedidoApi } from "../api";
 import { onClienteSelect, onClientes, onHiddeClienteInsert, onResetClientes } from "../store";
+import { nameToken } from "../helpers";
+import { useAuthStore } from "./useAuthStore";
 
 export const useClienteStore = () => {
     
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
+    const navigate = useNavigate();    
+    
     const { clientes, clientesTemp, clienteSelect } = useSelector( state => state.cliente);
+
+    const { tokenExpired } = useAuthStore();
 
     const startClientes = async() => {
         
@@ -29,7 +33,7 @@ export const useClienteStore = () => {
             
         } catch (error) {
             console.log(error);
-            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+            tokenExpired( error.response.data.errorToken );
         }
 
     }
@@ -50,13 +54,14 @@ export const useClienteStore = () => {
         
         try {
             
-            const {data} = await pedidoApi.post('/cliente', {cliente});
+            const {data} = await pedidoApi.post('/client', {cliente});
+            localStorage.setItem(nameToken, data.token);
 
-            if(data.success){
-                dispatch(onClienteSelect({id:data.clienteId, name:cliente.nombre}));
+            if(data.success){                
+                dispatch(onClienteSelect({id:data.cliente.clientes_id, name:data.cliente.razon}));
                 Swal.fire({
                     title: 'CLIENTE',
-                    text: data.info,
+                    text: data.msg,
                     icon: 'success',
                     confirmButtonText: 'OK',
                     confirmButtonColor: '#198754',
@@ -68,13 +73,12 @@ export const useClienteStore = () => {
                     }
                 })
             }else{
-                //TODO ERROR
-                Swal.fire('ERROR', data.info, 'error' )
+                Swal.fire('ERROR', data.msg, 'error' )
             }
             
         } catch (error) {
             console.log(error);
-            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+            tokenExpired( error.response.data.errorToken );
         }
 
     }

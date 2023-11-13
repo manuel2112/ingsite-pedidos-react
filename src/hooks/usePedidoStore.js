@@ -13,7 +13,7 @@ export const usePedidoStore = () => {
 
     const { pedido, pedidoList, arrIdPedido, searchTitle } = useSelector( state => state.pedido );
     
-    const { user } = useAuthStore();
+    const { user, tokenExpired } = useAuthStore();
     const { clienteSelect } = useClienteStore();
 
     const startPedido = async({total = 0}) => {    
@@ -47,13 +47,12 @@ export const usePedidoStore = () => {
                     }
                 })
             }else{
-                //TODO ERROR
                 Swal.fire('ERROR', data.info, 'error' )
             }
             
         } catch (error) {
             console.log(error);
-            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+            tokenExpired( error.response.data.errorToken );
         }
 
     }
@@ -77,7 +76,7 @@ export const usePedidoStore = () => {
             
         } catch (error) {
             console.log(error);
-            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+            tokenExpired( error.response.data.errorToken );
         }
     }
 
@@ -100,17 +99,13 @@ export const usePedidoStore = () => {
             
         } catch (error) {
             console.log(error);
-            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+            tokenExpired( error.response.data.errorToken );
         }
     }
 
     const startSearchList = async({unica = '',desde = '', hasta = ''}) => {
 
         Swal.showLoading();
-        // const fecha = {};
-        // fecha.unica = unica; 
-        // fecha.desde = desde; 
-        // fecha.hasta = hasta;
         
         try {
 
@@ -135,7 +130,7 @@ export const usePedidoStore = () => {
             }
         } catch (error) {
             console.log(error);
-            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+            tokenExpired( error.response.data.errorToken );
         }
     }
 

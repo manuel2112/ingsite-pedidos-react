@@ -3,10 +3,12 @@ import Swal from "sweetalert2";
 import { pedidoApi } from "../api";
 import { onArticles, onResetArticles } from "../store";
 import { nameToken } from "../helpers";
+import { useAuthStore } from "./useAuthStore";
 
 export const useArticuloStore = () => {
 
     const dispatch = useDispatch();
+    const { tokenExpired } = useAuthStore();
     const { articles, articlesTemp, families } = useSelector( state => state.articulo);
 
     const startArticles = async() => {
@@ -23,13 +25,12 @@ export const useArticuloStore = () => {
                 dispatch(onArticles(data));
                 Swal.close();
             }else{
-                //TODO ERROR
                 Swal.fire('ERROR', 'FAVOR RECARGAR SISTEMA', 'error' );
             }
             
         } catch (error) {
             console.log(error);
-            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+            tokenExpired( error.response.data.errorToken );
         }
 
     }

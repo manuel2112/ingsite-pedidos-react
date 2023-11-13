@@ -86,6 +86,18 @@ export const useAuthStore = () => {
 
     }
 
+    const tokenExpired = (bool= false) => {
+
+        if( bool ){                
+            localStorage.clear();
+            dispatch(onLogout());
+            Swal.fire('ERROR', 'SESIÓN EXPIRADA', 'error' );
+        }else{
+            Swal.fire('ERROR', 'PROTOCOLO NO SOPORTADO', 'error' );
+        }
+
+    }
+
     return {
         //PROPIEDADES
         status, 
@@ -95,7 +107,7 @@ export const useAuthStore = () => {
         //MÉTODOS
         startLogin,
         checkAuthToken,
-        startLogout
-
+        startLogout,
+        tokenExpired
     }
 }
